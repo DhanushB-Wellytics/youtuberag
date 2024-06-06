@@ -1,8 +1,8 @@
 import os
 
-os.environ["OPENAI_API_KEY"] = "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"
-os.environ["PINECONE_API_KEY"] = "921f776d-0d66-4d45-8026-5eea98f28936"
-os.environ["PINECONE_API_ENV"] = "us-east-1"
+os.environ["OPENAI_API_KEY"] = 
+os.environ["PINECONE_API_KEY"] = 
+os.environ["PINECONE_API_ENV"] = 
 
 
 from langchain_openai.chat_models import ChatOpenAI
