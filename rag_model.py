@@ -55,7 +55,11 @@ import numpy as np
 
 import pandas as pd
 
-Questions = pd.read_csv("/home/dhanushb/Wellytics/RAG_data/Questions.csv")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+csv_file_path = os.path.join(script_dir, 'Questions.csv')
+
+Questions = pd.read_csv(csv_file_path)
 
 questions = Questions["Questions"].to_list()
 
@@ -75,5 +79,5 @@ i = 1
 for question in questions:
     resp.append(chain.invoke(question))
     Questions["Response"] = resp + [np.nan] * (n - i)
-    Questions.to_csv("/home/dhanushb/Wellytics/RAG_data/Questions.csv")
+    Questions.to_csv(csv_file_path)
     i += 1
