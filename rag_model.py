@@ -4,6 +4,7 @@ os.environ["OPENAI_API_KEY"] = ""
 os.environ["PINECONE_API_KEY"] = ""
 os.environ["PINECONE_API_ENV"] = ""
 
+print("environment_set")
 
 from langchain_openai.chat_models import ChatOpenAI
 
