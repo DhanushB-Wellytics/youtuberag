@@ -1,8 +1,8 @@
 import os
 
-os.environ["OPENAI_API_KEY"] = ""
-os.environ["PINECONE_API_KEY"] = ""
-os.environ["PINECONE_API_ENV"] = ""
+os.environ["OPENAI_API_KEY"] = "sk-proj-8kHDULx3AlLZRrb906ZoT3BlbkFJzDr9EPj6sHEaI0RKR9jm"
+os.environ["PINECONE_API_KEY"] = "921f776d-0d66-4d45-8026-5eea98f28936"
+os.environ["PINECONE_API_ENV"] = "us-east-1"
 
 print("environment_set")
 
