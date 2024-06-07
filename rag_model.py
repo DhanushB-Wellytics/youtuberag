@@ -9,11 +9,13 @@ from langchain_openai.chat_models import ChatOpenAI
 
 model = ChatOpenAI(model="gpt-4o", temperature=0)
 
+print("model_set")
 
 from langchain_core.output_parsers import StrOutputParser
 
 parser = StrOutputParser()
 
+print("parser_set")
 
 from langchain.prompts import ChatPromptTemplate
 
@@ -33,11 +35,13 @@ Question: {question}
 
 prompt = ChatPromptTemplate.from_template(template)
 
+print("prompt_set")
 
 from langchain_openai.embeddings import OpenAIEmbeddings
 
 embeddings = OpenAIEmbeddings()
 
+print("embeddings_set")
 
 from langchain_pinecone import PineconeVectorStore
 
@@ -45,11 +49,17 @@ pinecone = PineconeVectorStore(embedding=embeddings, index_name="pdfs-rag")
 
 retriever = pinecone.as_retriever()
 
+print("retriever_set")
 
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 
 setup = RunnableParallel(context=retriever, question=RunnablePassthrough())
 
+print("setup_set")
+
+chain = setup | prompt | model | parser
+
+print("chain_set")
 
 import numpy as np
 
@@ -63,13 +73,14 @@ Questions = pd.read_csv(csv_file_path)
 
 questions = Questions["Questions"].to_list()
 
+print("questions_set")
 
 cont = []
 for question in questions:
     cont.append([docs.page_content for docs in retriever.invoke(question)])
 Questions["Context"] = cont
 
-chain = setup | prompt | model | parser
+print("context_set")
 
 resp = []
 
@@ -79,5 +90,8 @@ i = 1
 for question in questions:
     resp.append(chain.invoke(question))
     Questions["Response"] = resp + [np.nan] * (n - i)
-    Questions.to_csv(csv_file_path)
+    Questions.to_csv(os.path.join(script_dir, 'Questions_with_context_and_response.csv'))
+    print(f"{(n-i)} questions left")
     i += 1
+
+print("responses_set")
